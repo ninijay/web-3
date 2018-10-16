@@ -1,0 +1,19 @@
+<todo-form>
+    <form id="todo-form">
+        Create new todo: <input type="text" name="name"/>
+        <button id="save_todo" onclick="{ submit }">Save</button>
+    </form>
+
+    <script>
+        console.log(opts);
+        var tag = this;
+        var todos = opts.todos;
+
+        tag.submit = function() {
+            if(tag.name.value) {
+                todos.add({ "name" : tag.name.value});
+                tag.name.value = "";
+            }
+        }
+    </script>
+</todo-form>

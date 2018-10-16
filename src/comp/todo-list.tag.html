@@ -1,0 +1,46 @@
+<todo-list>
+    <div class="container">
+        <todo-form todos="{ this.todos }"></todo-form>
+        <ul>
+            <todo each="{ allTodos(); }"></todo>
+        </ul>
+    </div>
+
+    <div id="detail"></div>
+    <script>
+        var tag = this;
+        this.bus = opts.bus;
+
+        this.todos = new TodoCollection(bus);
+        this.detail = null;
+
+        var todoRouter = riot.route.create();
+
+        todoRouter('todo', function(){
+            console.log("home");
+            if(tag.detail){
+                tag.detail[0].unmount(true);
+            }
+        });
+
+        todoRouter('todo/*/*', function(id, action){
+            var todo = tag.todos.get(id);
+            console.log(todo);
+            tag.detail = riot.mount("#detail", 'todo-detail', { todo: todo});
+            console.log(detail);
+            console.log(id, action);
+        });
+
+        function allTodos() {
+            return this.todos.all();
+        };
+
+        this.bus.on("collectionUpdated", function(){
+            tag.update();
+        });
+
+        this.on("mount", function(){
+            this.todos.fetch();
+        });
+    </script>
+</todo-list>
