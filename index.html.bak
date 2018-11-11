@@ -8,11 +8,6 @@
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="src/models/TodoCollection.js"></script>
-    <script type="riot/tag" src="src/comp/todo-list.tag.html"></script>
-    <script type="riot/tag" src="src/comp/todo.tag.html"></script>
-    <script type="riot/tag" src="src/comp/todo-form.tag.html"></script>
-    <script type="riot/tag" src="src/comp/todo-detail.tag.html"></script>
     <script src="js/riot.js"></script>
     <script>
         $(function () {
@@ -22,14 +17,6 @@
 </head>
 
 <body>
-    Todo:
-    <todo-list></todo-list>
-    <script>
-    var bus = riot.observable();
-    riot.route.stop();
-    riot.mount("*", { bus : bus });
-    riot.route.start(true);
-    </script>
     <div class="container-fluid">
         <div class="row">
             <h2>
@@ -104,7 +91,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

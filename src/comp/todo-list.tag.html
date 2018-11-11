@@ -2,7 +2,7 @@
     <div class="container">
         <todo-form todos="{ this.todos }"></todo-form>
         <ul>
-            <todo each="{ allTodos(); }"></todo>
+            <todo each="{ allTodos() }"></todo>
         </ul>
     </div>
 
@@ -31,7 +31,7 @@
             console.log(id, action);
         });
 
-        function allTodos() {
+        this.allTodos = function() {
             return this.todos.all();
         };
 

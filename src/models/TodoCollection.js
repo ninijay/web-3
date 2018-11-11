@@ -24,7 +24,7 @@ class TodoCollection {
         model.uuid = this.uuid();
         this.collection.push(model);
         this.save();
-        this.bus.trigger("CollectionUpdated");
+        this.bus.trigger("collectionUpdated");
     }
 
     fetch(){
