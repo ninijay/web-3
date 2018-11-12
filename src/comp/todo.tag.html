@@ -11,12 +11,18 @@
     console.log(opts);
     var tag = this;
     var todos = tag.parent.todos;
-    
+    this.bus = tag.parent.bus; 
     toggle(e) {
         var item = e.item;
         item.done = !item.done;
+        todos.save();
+        tag.bus.trigger("collectionUpdated"); 
         return true;
     }
+   
+    this.bus.on("collectionUpdated", function() {
+		tag.update();
+	});
     
     tag.remove = function() {
         if(tag.name) {

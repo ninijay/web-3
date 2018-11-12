@@ -1,7 +1,16 @@
 <todo-detail>
     <h1>Details</h1>
-    <p> { opts.todo.name } </p>
-    <p> { opts.todo.done } </p>
-    <p> { opts.todo.uuid } </p>
+    <p> Prio: { opts.todo.priority }</p>
+    <p> Name: { opts.todo.name } </p>
+    <p> Done: { opts.todo.done || "false" } </p>
+    <p> ID: { opts.todo.uuid } </p>
+    <p> Due Date: { opts.todo.date || "Open"} </p>
     <p><a href="#/todo">Close</a></p>
+    <script>
+     var tag = this;
+     this.bus = opts.bus;
+     this.bus.on("collectionUpdated", function() {
+		tag.update();
+	});
+    </script>
 </todo-detail>

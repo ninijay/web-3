@@ -1,25 +1,26 @@
 <project-list>
     <div class="container">
+        <h2>Projects</h2>
         <project-form projects="{ this.projects }"></project-form>
         <ul>
             <project each="{ allProjects() }"></project>
         </ul>
+        <div id="todolist"></div>
     </div>
-    <div id="todolist"></div>
+
     <script>
         var tag = this;
         this.bus = opts.bus;
 
         this.projects = new ProjectCollection(bus);
-        this.detail = null;
         this.todos = null;
 
         var projectRouter = riot.route.create();
 
         projectRouter('project', function () {
             console.log("home");
-            if (tag.detail) {
-                tag.detail[0].unmount(true);
+            if (tag.todos) {
+                tag.todos[0].unmount(true);
             }
         });
 
@@ -27,10 +28,10 @@
             var project = tag.projects.get(id);
             console.log(action);
             console.log(project);
-            tag.detail = riot.mount("#todolist", 'todo-list', {
-               projectid : id, bus : tag.bus 
+            tag.todos= riot.mount("#todolist", 'todo-list', {
+                projectid: id, bus: tag.bus
             });
-            console.log(detail);
+            console.log(tag.todos);
             console.log(id, action);
         });
 

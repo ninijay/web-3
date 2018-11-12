@@ -1,18 +1,38 @@
 <todo-form>
     <form id="todo-form">
         <input type="text" class="form-control" style="width: 40%; float: left;" placeholder="Enter a new issue" name="name"/>
+        <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select class="form-control" id="prioSelect" priority="priority">
+                            <option>Priority</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" id="datepicker"/>
+                </div>
+            </div>
         <button id="save_todo" class="btn btn-primary" onclick="{ submit }">Save</button>
     </form>
 
     <script>
         console.log(opts);
+        
+        $(function () {
+            $("#datepicker").datepicker();
+        });
         var tag = this;
         var todos = opts.todos;
 
         tag.submit = function(e) {
         	e.preventDefault();
             if(tag.name.value) {
-                todos.add({ "name" : tag.name.value});
+                todos.add({ "name" : tag.name.value, "priority": tag.prioSelect.value, "date": tag.datepicker.value, "done" : false} );
                 tag.name.value = "";
             }
         }
