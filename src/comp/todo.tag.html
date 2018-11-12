@@ -10,7 +10,7 @@
     <script>
     console.log(opts);
     var tag = this;
-    var todos = opts.todos; 
+    var todos = tag.parent.todos;
     
     toggle(e) {
         var item = e.item;
