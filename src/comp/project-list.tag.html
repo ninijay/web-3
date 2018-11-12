@@ -1,10 +1,20 @@
 <project-list>
     <div class="container">
-        <h2>Projects</h2>
-        <project-form projects="{ this.projects }"></project-form>
-        <ul>
-            <project each="{ allProjects() }"></project>
-        </ul>
+        <h2>Yet Another Issue Tracker</h2>
+        <hr />
+        <div class="row">
+
+            <div class="col-3">
+                <h3>Projects</h3>
+                <ul>
+                    <project each="{ allProjects() }"></project>
+                </ul>
+            </div>
+            <div class="col-9">
+                <project-form projects="{ this.projects }"></project-form>
+            </div>
+        </div>
+
         <div id="todolist"></div>
     </div>
 
@@ -28,7 +38,7 @@
             var project = tag.projects.get(id);
             console.log(action);
             console.log(project);
-            tag.todos= riot.mount("#todolist", 'todo-list', {
+            tag.todos = riot.mount("#todolist", 'todo-list', {
                 projectid: id, bus: tag.bus
             });
             console.log(tag.todos);

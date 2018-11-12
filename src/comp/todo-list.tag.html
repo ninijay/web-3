@@ -1,55 +1,64 @@
 <todo-list>
+	<hr />
 	<div class="row">
-		<h2>Issue Tracker</h2>
-	</div>
-	<div class="row">
-		<h2>Issues</h2>
-		<div class="col-md-12">
+		<div class="col-md-3">
+			<h3>Create New Issue</h3>
 			<todo-form todos="{ this.todos }"></todo-form>
-			<ul>
+		</div>
+		<div class="col-md-9">
+
+			<h3>Issues</h3>
+			<ul class="list-group">
 				<todo each="{ allTodos() }"></todo>
 			</ul>
+		</div>
+
+
+	</div>
+	<div class="row">
+		<div class="col-12">
+
+			<hr />
 			<div id="issue-detail"></div>
 		</div>
 	</div>
+	<script>
+		var tag = this;
+		this.bus = opts.bus;
 
-<script>
-	var tag = this;
-	this.bus = opts.bus;
+		this.todos = new TodoCollection(bus, opts.projectid);
+		this.detail = null;
 
-	this.todos = new TodoCollection(bus, opts.projectid);
-	this.detail = null;
+		var todoRouter = riot.route.create();
 
-	var todoRouter = riot.route.create();
-
-	todoRouter('todo', function() {
-		console.log("home");
-		if (tag.detail) {
-			tag.detail[0].unmount(true);
-		}
-	});
-
-	todoRouter('todo/*/*', function(id, action) {
-		var todo = tag.todos.get(id);
-		console.log(todo);
-		tag.detail = riot.mount("#issue-detail", 'todo-detail', {
-			todo : todo,
-			bus : tag.bus
+		todoRouter('todo', function () {
+			console.log("home");
+			if (tag.detail) {
+				tag.detail[0].unmount(true);
+			}
 		});
-		console.log(detail);
-		console.log(id, action);
-	});
 
-	this.allTodos = function() {
-		return this.todos.all();
-	};
+		todoRouter('todo/*/*', function (id, action) {
+			var todo = tag.todos.get(id);
+			console.log(todo);
+			tag.detail = riot.mount("#issue-detail", 'todo-detail', {
+				todo: todo,
+				bus: tag.bus
+			});
+			console.log(detail);
+			console.log(id, action);
+		});
 
-	this.bus.on("collectionUpdated", function() {
-		tag.update();
-	});
+		this.allTodos = function () {
+			return this.todos.all();
+		};
 
-	this.on("mount", function() {
-		this.todos.fetch();
-	});
-</script>
+		this.bus.on("collectionUpdated", function () {
+			tag.update();
+		});
+
+		this.on("mount", function () {
+			this.todos.fetch();
+		});
+	</script>
 </todo-list>

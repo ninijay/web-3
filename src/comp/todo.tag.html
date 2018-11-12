@@ -1,34 +1,35 @@
 <todo>
-    <li>
-        <span class="{ completed: done }">
-            <input type="checkbox" checked = "{ done }" onclick="{ this.toggle }" />
+    <li class="list-group-item" style="width: 100%;">
+        <span class="{ completed: done }" style="width: 100%;">
+            <input type="checkbox" checked="{ done }" onclick="{ this.toggle }" />
             <a href="#/todo/{uuid}/show">{ name }</a>
-            <button type="button" onclick="{ remove }">Delete</button>
+        <button class="btn btn-danger" onclick="{ remove }"><i class="fa fa-trash"></i></button>
         </span>
     </li>
-    
+
     <script>
-    console.log(opts);
-    var tag = this;
-    var todos = tag.parent.todos;
-    this.bus = tag.parent.bus; 
-    toggle(e) {
-        var item = e.item;
-        item.done = !item.done;
-        todos.save();
-        tag.bus.trigger("collectionUpdated"); 
-        return true;
-    }
-   
-    this.bus.on("collectionUpdated", function() {
-		tag.update();
-	});
-    
-    tag.remove = function() {
-        if(tag.name) {
-            todos.remove(tag.uuid);
+        console.log(opts);
+        var tag = this;
+        var todos = tag.parent.todos;
+        this.bus = tag.parent.bus;
+        toggle(e) {
+            var item = e.item;
+            item.done = !item.done;
+            todos.save();
+            tag.bus.trigger("collectionUpdated");
+            return true;
         }
-    }
-    
+
+        this.bus.on("collectionUpdated", function () {
+            tag.update();
+        });
+
+        tag.remove = function (e) {
+            e.preventDefault();
+            if (tag.name) {
+                todos.remove(tag.uuid);
+            }
+        }
+
     </script>
 </todo>

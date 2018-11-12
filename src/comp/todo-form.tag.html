@@ -1,8 +1,7 @@
 <todo-form>
     <form id="todo-form">
-        <input type="text" class="form-control" style="width: 40%; float: left;" placeholder="Enter a new issue" name="name"/>
-        <div class="row">
-                <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="Enter a new issue" name="name"/>
+        <br />
                     <div class="form-group">
                         <select class="form-control" id="prioSelect" priority="priority">
                             <option>Priority</option>
@@ -12,12 +11,9 @@
                             <option>4</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" id="datepicker"/>
-                </div>
-            </div>
-        <button id="save_todo" class="btn btn-primary" onclick="{ submit }">Save</button>
+                    <input type="text" id="datepicker" class="form-control" placeholder="Pick a Date"/>
+                    <br />
+        <button id="save_todo" class="btn btn-primary" onclick="{ submit }">Add</button>
     </form>
 
     <script>
