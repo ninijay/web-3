@@ -3,14 +3,25 @@
         <span class={ completed: done }>
             <input type="checkbox" checked = "{ done }" onclick={ this.toggle }>
             <a href="#/todo/{uuid}/show">{ name }</a>
+            <button type="button" onclick="{ remove }">Delete</button>
         </span>
     </li>
     
     <script>
+    var tag = this;
+    var todos = opts.todos;
+    
     toggle(e) {
         var item = e.item
         item.done = !item.done
         return true
       }
+    
+    tag.remove = function() {
+        if(this.name) {
+            todos.remove({ "name" : this.name});
+        }
+    }
+    
     </script>
 </todo>

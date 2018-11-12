@@ -9,7 +9,8 @@
         var tag = this;
         var todos = opts.todos;
 
-        tag.submit = function() {
+        tag.submit = function(e) {
+        	e.preventDefault();
             if(tag.name.value) {
                 todos.add({ "name" : tag.name.value});
                 tag.name.value = "";

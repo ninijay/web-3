@@ -26,6 +26,16 @@ class TodoCollection {
         this.save();
         this.bus.trigger("collectionUpdated");
     }
+    
+    remove(name){
+    	this.collection.pull(name);
+    	this.rmv(name);
+    	this.bus.trigger("collectionUpdated");
+    }
+    
+    rmv(name){
+    	 localStorage.removeItem(name);
+    }
 
     fetch(){
         this.collection = JSON.parse(localStorage.getItem(this.localStorage_key)) || [];
