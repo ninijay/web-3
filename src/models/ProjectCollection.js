@@ -1,8 +1,7 @@
-class TodoCollection {
-    constructor(bus, id){
+class ProjectCollection {
+    constructor(bus){
         this.collection = [];
-        this.localStorage_key = 'todos-'+id;
-
+        this.localStorage_key = 'projects';
         this.bus = bus;
     }
 
@@ -25,19 +24,6 @@ class TodoCollection {
         this.collection.push(model);
         this.save();
         this.bus.trigger("collectionUpdated");
-    }
-    
-    remove(uuid){
-        var index = -1;
-        for(var i = 0; i < this.collection.length; i++){
-            if(this.collection[i].uuid == uuid){
-                index = i;
-                break;
-            }
-        }
-        this.collection.splice(index, 1);
-    	this.save();
-    	this.bus.trigger("collectionUpdated");
     }
 
     fetch(){

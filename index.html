@@ -10,15 +10,19 @@
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="src/models/TodoCollection.js"></script>
+    <script src="src/models/ProjectCollection.js"></script>
     <script type="riot/tag" src="src/comp/todo-list.tag.html"></script>
     <script type="riot/tag" src="src/comp/todo.tag.html"></script>
     <script type="riot/tag" src="src/comp/todo-form.tag.html"></script>
     <script type="riot/tag" src="src/comp/todo-detail.tag.html"></script>
+    <script type="riot/tag" src="src/comp/project-list.tag.html"></script>
+    <script type="riot/tag" src="src/comp/project-form.tag.html"></script>
+    <script type="riot/tag" src="src/comp/project.tag.html"></script>
     <script src="js/riot.js"></script>
 </head>
 
 <body>
-    <todo-list></todo-list>
+    <project-list></project-list>
     <script>
     var bus = riot.observable();
     riot.route.stop();

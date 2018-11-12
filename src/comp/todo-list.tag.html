@@ -1,70 +1,7 @@
 <todo-list>
-<!-- <div class="container"> -->
-<!-- 	<todo-form todos="{ this.todos }"></todo-form> -->
-<!-- 	<ul> -->
-<!-- 		<todo each="{ allTodos() }"></todo> -->
-<!-- 	</ul> -->
-<!-- </div> -->
-
-<!-- <div id="detail"></div> -->
-
-
-
-
 <div class="container-fluid">
 	<div class="row">
 		<h2>Issue Tracker</h2>
-	</div>
-	<div class="row">
-		<div id="projects" class="col-md-2">
-			<div class="form-group">
-				<!--                     <label for="exampleSelect2">Projects</label><br /> -->
-				<!--                     <select multiple class="form-control" id="exampleSelect2"> -->
-				<!--                         <option>Angular App</option> -->
-				<!--                         <option>Become Agile</option> -->
-				<!--                         <option>Blockchain</option> -->
-				<!--                         <option>IoT Machine Learning</option> -->
-				<!--                         <option>Cloud</option> -->
-				<!--                     </select> -->
-			</div>
-		</div>
-		<div id="project-name" class="col-md-8">
-			<div class="form-group">
-				<!--                     <label for="pname">Project Name</label> -->
-				<!--                     <input type="text" class="form-control" id="pname" placeholder="Enter New Project Name"> -->
-			</div>
-		</div>
-		<div class="col-md-2" id="add-project">
-			<div class="form-group">
-				<!--                     <br /> -->
-				<!--                     <button type="submit" class="btn btn-primary">Create Project</button> -->
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-			<div class="form-group">
-				<!--                     <select class="form-control" id="prioSelect"> -->
-				<!--                         <option>Priority</option> -->
-				<!--                         <option>1</option> -->
-				<!--                         <option>2</option> -->
-				<!--                         <option>3</option> -->
-				<!--                         <option>4</option> -->
-				<!--                     </select> -->
-			</div>
-		</div>
-		<div class="col-md-2">
-<!-- 			<input type="text" id="datepicker"> -->
-		</div>
-		<div class="col-md-6">
-<!-- 			<input type="text" class="form-control" id="iname" -->
-<!-- 				placeholder="Enter Issue Name"> -->
-		</div>
-		<div class="col-md-2">
-			<div class="form-group">
-				<!--                     <button type="submit" class="btn btn-primary">Create Issue</button> -->
-			</div>
-		</div>
 	</div>
 	<div class="row">
 		<h2>Issues</h2>
@@ -83,7 +20,7 @@
 	var tag = this;
 	this.bus = opts.bus;
 
-	this.todos = new TodoCollection(bus);
+	this.todos = new TodoCollection(bus, opts.projectid);
 	this.detail = null;
 
 	var todoRouter = riot.route.create();
