@@ -1,46 +1,120 @@
 <todo-list>
-    <div class="container">
-        <todo-form todos="{ this.todos }"></todo-form>
-        <ul>
-            <todo each="{ allTodos() }"></todo>
-        </ul>
-    </div>
+<!-- <div class="container"> -->
+<!-- 	<todo-form todos="{ this.todos }"></todo-form> -->
+<!-- 	<ul> -->
+<!-- 		<todo each="{ allTodos() }"></todo> -->
+<!-- 	</ul> -->
+<!-- </div> -->
 
-    <div id="detail"></div>
-    <script>
-        var tag = this;
-        this.bus = opts.bus;
+<!-- <div id="detail"></div> -->
 
-        this.todos = new TodoCollection(bus);
-        this.detail = null;
 
-        var todoRouter = riot.route.create();
 
-        todoRouter('todo', function(){
-            console.log("home");
-            if(tag.detail){
-                tag.detail[0].unmount(true);
-            }
-        });
 
-        todoRouter('todo/*/*', function(id, action){
-            var todo = tag.todos.get(id);
-            console.log(todo);
-            tag.detail = riot.mount("#detail", 'todo-detail', { todo: todo});
-            console.log(detail);
-            console.log(id, action);
-        });
+<div class="container-fluid">
+	<div class="row">
+		<h2>Issue Tracker</h2>
+	</div>
+	<div class="row">
+		<div id="projects" class="col-md-2">
+			<div class="form-group">
+				<!--                     <label for="exampleSelect2">Projects</label><br /> -->
+				<!--                     <select multiple class="form-control" id="exampleSelect2"> -->
+				<!--                         <option>Angular App</option> -->
+				<!--                         <option>Become Agile</option> -->
+				<!--                         <option>Blockchain</option> -->
+				<!--                         <option>IoT Machine Learning</option> -->
+				<!--                         <option>Cloud</option> -->
+				<!--                     </select> -->
+			</div>
+		</div>
+		<div id="project-name" class="col-md-8">
+			<div class="form-group">
+				<!--                     <label for="pname">Project Name</label> -->
+				<!--                     <input type="text" class="form-control" id="pname" placeholder="Enter New Project Name"> -->
+			</div>
+		</div>
+		<div class="col-md-2" id="add-project">
+			<div class="form-group">
+				<!--                     <br /> -->
+				<!--                     <button type="submit" class="btn btn-primary">Create Project</button> -->
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="form-group">
+				<!--                     <select class="form-control" id="prioSelect"> -->
+				<!--                         <option>Priority</option> -->
+				<!--                         <option>1</option> -->
+				<!--                         <option>2</option> -->
+				<!--                         <option>3</option> -->
+				<!--                         <option>4</option> -->
+				<!--                     </select> -->
+			</div>
+		</div>
+		<div class="col-md-2">
+<!-- 			<input type="text" id="datepicker"> -->
+		</div>
+		<div class="col-md-6">
+<!-- 			<input type="text" class="form-control" id="iname" -->
+<!-- 				placeholder="Enter Issue Name"> -->
+		</div>
+		<div class="col-md-2">
+			<div class="form-group">
+				<!--                     <button type="submit" class="btn btn-primary">Create Issue</button> -->
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<h2>Issues</h2>
+		<div class="col-md-12">
+			<todo-form todos="{ this.todos }"></todo-form>
+			<ul>
+				<todo each="{ allTodos() }"></todo>
+			</ul>
+			<div id="detail"></div>
+		</div>
+	</div>
+</div>
 
-        this.allTodos = function() {
-            return this.todos.all();
-        };
 
-        this.bus.on("collectionUpdated", function(){
-            tag.update();
-        });
+<script>
+	var tag = this;
+	this.bus = opts.bus;
 
-        this.on("mount", function(){
-            this.todos.fetch();
-        });
-    </script>
+	this.todos = new TodoCollection(bus);
+	this.detail = null;
+
+	var todoRouter = riot.route.create();
+
+	todoRouter('todo', function() {
+		console.log("home");
+		if (tag.detail) {
+			tag.detail[0].unmount(true);
+		}
+	});
+
+	todoRouter('todo/*/*', function(id, action) {
+		var todo = tag.todos.get(id);
+		console.log(todo);
+		tag.detail = riot.mount("#detail", 'todo-detail', {
+			todo : todo
+		});
+		console.log(detail);
+		console.log(id, action);
+	});
+
+	this.allTodos = function() {
+		return this.todos.all();
+	};
+
+	this.bus.on("collectionUpdated", function() {
+		tag.update();
+	});
+
+	this.on("mount", function() {
+		this.todos.fetch();
+	});
+</script>
 </todo-list>
