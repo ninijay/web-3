@@ -27,14 +27,17 @@ class TodoCollection {
         this.bus.trigger("collectionUpdated");
     }
     
-    remove(name){
-    	this.collection.pull(name);
-    	this.rmv(name);
+    remove(uuid){
+        var index = -1;
+        for(var i = 0; i < this.collection.length; i++){
+            if(this.collection[i].uuid == uuid){
+                index = i;
+                break;
+            }
+        }
+        this.collection.splice(index, 1);
+    	this.save();
     	this.bus.trigger("collectionUpdated");
-    }
-    
-    rmv(name){
-    	 localStorage.removeItem(name);
     }
 
     fetch(){
