@@ -1,8 +1,17 @@
 <todo>
     <li>
-        <span>
-            <input type="checkbox" checked = "{ done }" />
+        <span class={ completed: done }>
+            <input type="checkbox" checked = "{ done }" onclick={ this.toggle }>
             <a href="#/todo/{uuid}/show">{ name }</a>
         </span>
     </li>
+    
+    <script>
+    toggle(e) {
+    	debugger;
+        var item = e.item
+        item.done = !item.done
+        return true
+      }
+    </script>
 </todo>
