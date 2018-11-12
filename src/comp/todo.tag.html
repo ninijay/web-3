@@ -8,6 +8,7 @@
     </li>
     
     <script>
+    console.log(opts);
     var tag = this;
     var todos = opts.todos;
     
@@ -19,7 +20,7 @@
     
     tag.remove = function() {
         if(this.name) {
-            todos.remove({ "name" : this.name});
+            todos.remove(this.name);
         }
     }
     
