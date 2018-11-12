@@ -22,7 +22,7 @@
     <script>
     var bus = riot.observable();
     riot.route.stop();
-    riot.mount("*", { bus : bus });
+    riot.mount("*", { bus : bus, todos : newTodoCollection });
     riot.route.start(true);
     </script>
    
