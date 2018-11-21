@@ -3,11 +3,15 @@ class ProjectCollection {
         this.collection = [];
         this.localStorage_key = 'projects';
         this.bus = bus;
+        this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/projects";
     }
 
     get(id) {
         return this.collection.find(function(el){
-            return el.uuid == id;
+            if(el.client_id == undefined){
+                return el.uuid == id;
+            }
+            return el.client_id == id;
         });
     }
 
@@ -19,11 +23,22 @@ class ProjectCollection {
         localStorage.setItem(this.localStorage_key, JSON.stringify(this.collection));
     }
 
-    add(model){
-        model.uuid = this.uuid();
-        this.collection.push(model);
-        this.save();
-        this.bus.trigger("collectionUpdated");
+    add(model, callback){
+        model.client_id = this.uuid();
+        model.active = false;
+
+        $.post(
+            this.root, 
+            JSON.stringify(model),
+            function(data){}, 
+            "json"
+        ).done(function(data){
+                model.id = data.id;
+                this.collection.push(model);
+                this.save();
+                this.bus.trigger("collectionUpdated");
+                callback();
+        }); 
     }
 
     fetch(){
@@ -32,11 +47,11 @@ class ProjectCollection {
     }
 
     uuid(){
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var client_id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
             return v.toString(16);
         });
-        console.log(uuid);
-        return uuid;
+        console.log(client_id);
+        return client_id;
     }
 }

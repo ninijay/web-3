@@ -19,10 +19,11 @@
 
         tag.submit = function () {
             if (tag.pname.value) {
-                projects.add({ "name": tag.pname.value, "todos": null });
-                tag.pname.value = "";
-                tag.prioSelect.value = "Priority";
-                tag.datepicker.value = null;
+                projects.add({ "title": tag.pname.value } , function(){
+                    tag.pname.value = "";
+                    tag.prioSelect.value = "Priority";
+                    tag.datepicker.value = null;
+                });
             }
         }
     </script>
