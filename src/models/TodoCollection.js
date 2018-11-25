@@ -3,6 +3,8 @@ class TodoCollection {
         this.collection = [];
         this.localStorage_key = 'todos-'+id;
 
+        this.projId = id;
+        this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/;
         this.bus = bus;
     }
 
@@ -20,11 +22,24 @@ class TodoCollection {
         localStorage.setItem(this.localStorage_key, JSON.stringify(this.collection));
     }
 
-    add(model){
+    add_old(model){
         model.uuid = this.uuid();
         this.collection.push(model);
         this.save();
         this.bus.trigger("collectionUpdated");
+    }
+    
+    add(model, callback){
+        model.client_id = this.uuid();
+        model.active = false;
+        post(api, callback, failcb) {
+            $.ajax({
+                type: "POST",
+                url: this.root + "project/"+ id +"/issues"",
+                data: "",
+                contentType: "application/json"
+            }).done(callback(json));
+        }
     }
     
     remove(uuid){
