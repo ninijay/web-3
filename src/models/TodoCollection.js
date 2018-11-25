@@ -32,7 +32,7 @@ class TodoCollection {
     add(model, callback){
         model.client_id = this.uuid();
         model.active = false;
-        post(api, callback, failcb) {
+        post(callback) {
             $.ajax({
                 type: "POST",
                 url: this.root + "project/"+ id +"/issues"",
