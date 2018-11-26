@@ -63,20 +63,6 @@ class ProjectCollection {
                 callback;
             }
         });
-        
-        
-/*        $.post(
-            this.root, 
-            JSON.stringify(postModel),
-            function(data){
-
-            }).done(function(data){
-                model.id = data.id;
-                this.collection.push(model);
-                this.save();
-                this.bus.trigger("collectionUpdated");
-                callback();
-        });*/
     }
 
     fetch(){
