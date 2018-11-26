@@ -21,11 +21,11 @@ class ProjectCollection {
     }
 
     add(model, callback){
+        parent = this;
+
         model.client_id = this.uuid();
         model.active = false;
         
-        console.log(JSON.stringify(model));
- 
         var postModel = {
             client_id: "",
             title: "",
@@ -36,27 +36,44 @@ class ProjectCollection {
         postModel.title = (model.title == undefined ? model.name : model.title);
         postModel.active = model.active;
 
-        /*
+        console.log(JSON.stringify(postModel));
+        
         $.ajax({
             type: "POST",
             url: this.root,
             data: JSON.stringify(postModel),
-            contentType: "application/json"
-        }).done(callback);
-        */
+            contentType: "application/json",
+            success: function(data){
+                model.id = data.id;
+                var found = false;
+                parent.collection.array.forEach(function(element) {
+                    if(elemnt.client_id == model.client_id){
+                        element.id = model.id;
+                        found = true;
+                    }
+                }, this); 
+                if(!found){
+                    parent.collection.push(model);
+                }
+                parent.save();
+                parent.bus.trigger("collectionUpdated");
+                callback;
+            }
+        });
         
-        $.post(
+        
+/*        $.post(
             this.root, 
             JSON.stringify(postModel),
-            function(data){}, 
-            "json"
-        ).done(function(data){
+            function(data){
+
+            }).done(function(data){
                 model.id = data.id;
                 this.collection.push(model);
                 this.save();
                 this.bus.trigger("collectionUpdated");
                 callback();
-        }); 
+        });*/
     }
 
     fetch(){
