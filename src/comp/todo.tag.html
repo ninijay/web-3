@@ -2,7 +2,7 @@
     <li class="list-group-item" style="width: 100%;">
         <span class="{ completed: done }" style="width: 100%;">
             <input type="checkbox" checked="{ done }" onclick="{ this.toggle }" />
-            <a href="#/todo/{uuid}/show">{ name }</a>
+            <a href="#/todo/{id}/show">{ title }</a>
         <button class="btn btn-danger" onclick="{ remove }"><i class="fa fa-trash"></i></button>
         </span>
     </li>
@@ -27,7 +27,7 @@
         tag.remove = function (e) {
             e.preventDefault();
             if (tag.name) {
-                todos.remove(tag.uuid);
+                todos.remove(tag.id);
             }
         }
 

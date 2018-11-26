@@ -1,17 +1,17 @@
 class TodoCollection {
-    constructor(bus, id){
+    constructor(bus, project_id, project_client_id){
         this.collection = [];
-        this.localStorage_key = 'todos-'+id;
-
-        this.projId = id;
-        this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/";
+        this.localStorage_key = 'todos-' + project_id;
+        this.project_id  = project_id;
+        this.project_client_id = project_client_id;
+        this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/projects/";
         this.bus = bus;
         this.result = [];
     }
 
     get(id) {
         return this.collection.find(function(el){
-            return el.uuid == id;
+            return el.id == id;
         });
     }
 
@@ -31,22 +31,34 @@ class TodoCollection {
     }
     
     add(model, callback){
+        parent = this;
+
         model.client_id = this.uuid();
-        model.project_client_id = this.projId;
-        console.log(model.project_client_id);
+        model.project_id = this.project_id;
+        model.project_client_id = this.project_client_id;
+
+        model.due_date = "2018-11-26T16:12:39.703Z";
+        console.log(JSON.stringify(model));
+
         $.ajax({
             type: "POST",
-//            url: this.root + "project/12525/issues",
-            url: this.root + "project/"+ this.projId +"/issues",
+            url: this.root + this.project_id + "/issues",
             data: JSON.stringify(model),
-            contentType: "application/json"
-        }).done(callback(json));
+            contentType: "application/json",
+            success : function(data){
+                model.id = data.id;
+                parent.collection.push(model);
+                parent.save();
+                parent.bus.trigger("collectionUpdated");
+                callback;
+            }
+        });
     }
     
-    remove(uuid){
+    remove(id){
         var index = -1;
         for(var i = 0; i < this.collection.length; i++){
-            if(this.collection[i].uuid == uuid){
+            if(this.collection[i].id == id){
                 index = i;
                 break;
             }
@@ -63,18 +75,29 @@ class TodoCollection {
 // }
     
     fetch(){
+        parent = this;
+        this.collection = JSON.parse(localStorage.getItem(this.localStorage_key)) || [];
 		$.ajax({
             type: "GET",
-            url: this.root + "projects/12525/issues",
-            success: function(result) {
-            	this.result = result;
+            url: this.root + this.project_id + "/issues",
+            contentType: "application/json",
+            success: function(data) {
+                data.forEach(function(d) {
+                    var found = false;
+                    parent.collection.forEach(function(e) {
+                        debugger;
+                        if(d.id == e.id){
+                            found = true;
+                        }
+                    }, this);
+                    if(!found){
+                        parent.collection.push(d);
+                        parent.save();
+                    }
+                }, this);
+                parent.bus.trigger("collectionUpdated");
             }
-        }).done( function() {
-//        	this.collection = JSON.parse(this.result);
-        	console.log(this.result);
         });
-        
-        this.bus.trigger("collectionUpdated");
     }
     
     uuid(){

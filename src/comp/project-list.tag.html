@@ -45,7 +45,7 @@
             console.log(action);
             console.log(project);
             tag.todos = riot.mount("#todolist", 'todo-list', {
-                projectid: id, bus: tag.bus
+                project_id: parseInt(id), project_client_id: project.client_id, bus: tag.bus
             });
             console.log(tag.todos);
             console.log(id, action);

@@ -8,7 +8,7 @@ class ProjectCollection {
 
     get(id) {
         return this.collection.find(function(el){
-            return el.client_id == id;
+            return el.id == id;
         });
     }
 
