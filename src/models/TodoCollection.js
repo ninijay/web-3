@@ -55,18 +55,37 @@ class TodoCollection {
         });
     }
     
+//    remove(id){
+//        var index = -1;
+//        for(var i = 0; i < this.collection.length; i++){
+//            if(this.collection[i].id == id){
+//                index = i;
+//                break;
+//            }
+//        }
+//        this.collection.splice(index, 1);
+//    	this.save();
+//    	this.bus.trigger("collectionUpdated");
+//    }
+    
     remove(id){
-        var index = -1;
-        for(var i = 0; i < this.collection.length; i++){
-            if(this.collection[i].id == id){
-                index = i;
-                break;
-            }
-        }
-        this.collection.splice(index, 1);
-    	this.save();
-    	this.bus.trigger("collectionUpdated");
-    }
+   	 $.ajax({
+   		 type: "DELETE",
+   		 url: this.root + this.project_id + "/issues/" + id,
+   		 success : function(data){
+   		   var index = -1;
+   		   for(var i = 0; i < parent.collection.length; i++){
+   			   if(parent.collection[i].id == id){
+   				   index = i;
+   				   break;
+   			   }
+   		   }
+   		    parent.collection.splice(index, 1);
+   		    parent.save();
+   		    parent.bus.trigger("collectionUpdated");
+   		 }
+   	 });
+   }
 
 // fetch(){
 // this.collection = JSON.parse(localStorage.getItem(this.localStorage_key)) ||
