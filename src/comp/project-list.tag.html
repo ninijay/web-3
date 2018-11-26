@@ -23,6 +23,12 @@
         this.bus = opts.bus;
 
         this.projects = new ProjectCollection(bus);
+        this.projects.collection.forEach(function(element) {
+            if(element.id == undefined){
+                this.projects.add(element);
+            }
+        }, this);
+
         this.todos = null;
 
         var projectRouter = riot.route.create();

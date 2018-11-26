@@ -1,16 +1,13 @@
 class ProjectCollection {
     constructor(bus){
-        this.collection = [];
         this.localStorage_key = 'projects';
+        this.collection = JSON.parse(localStorage.getItem(this.localStorage_key)) || [];
         this.bus = bus;
         this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/projects";
     }
 
     get(id) {
         return this.collection.find(function(el){
-            if(el.client_id == undefined){
-                return el.uuid == id;
-            }
             return el.client_id == id;
         });
     }
@@ -26,10 +23,31 @@ class ProjectCollection {
     add(model, callback){
         model.client_id = this.uuid();
         model.active = false;
+        
+        console.log(JSON.stringify(model));
+ 
+        var postModel = {
+            client_id: "",
+            title: "",
+            active: false
+        };
 
+        postModel.client_id = model.client_id;
+        postModel.title = (model.title == undefined ? model.name : model.title);
+        postModel.active = model.active;
+
+        /*
+        $.ajax({
+            type: "POST",
+            url: this.root,
+            data: JSON.stringify(postModel),
+            contentType: "application/json"
+        }).done(callback);
+        */
+        
         $.post(
             this.root, 
-            JSON.stringify(model),
+            JSON.stringify(postModel),
             function(data){}, 
             "json"
         ).done(function(data){
