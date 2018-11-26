@@ -85,7 +85,6 @@ class TodoCollection {
                 data.forEach(function(d) {
                     var found = false;
                     parent.collection.forEach(function(e) {
-                        debugger;
                         if(d.id == e.id){
                             found = true;
                         }
