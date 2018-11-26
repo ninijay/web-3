@@ -36,7 +36,7 @@
         tag.submit = function(e) {
         	e.preventDefault();
             if(tag.name.value) {
-                todos.add({ "name" : tag.name.value, "priority": tag.prioSelect.value, "date": tag.datepicker.value, "done" : false}, function() {
+                todos.add({ "name" : tag.name.value, "priority": tag.prioSelect.value, "date": tag.datepicker.value}, function() {
                 	tag.name.value = "name";
                     tag.prioSelect.value = "priority";
                     tag.datepicker.value = "date";

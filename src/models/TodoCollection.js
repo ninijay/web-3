@@ -4,7 +4,7 @@ class TodoCollection {
         this.localStorage_key = 'todos-'+id;
 
         this.projId = id;
-        this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/;
+        this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/";
         this.bus = bus;
     }
 
@@ -32,14 +32,12 @@ class TodoCollection {
     add(model, callback){
         model.client_id = this.uuid();
         model.active = false;
-        post(callback) {
-            $.ajax({
-                type: "POST",
-                url: this.root + "project/"+ id +"/issues"",
-                data: "",
-                contentType: "application/json"
-            }).done(callback(json));
-        }
+        $.ajax({
+            type: "POST",
+            url: this.root + "project/"+ id +"/issues"",
+            data: JSON.stringify(model),
+            contentType: "application/json"
+        }).done(callback(json));
     }
     
     remove(uuid){
