@@ -49,7 +49,7 @@ class ProjectCollection {
                 var found = false;
                 if(parent.collection.length > 0){
                     parent.collection.forEach(function(element) {
-                        if(elemnt.client_id == model.client_id){
+                        if(element.client_id == model.client_id){
                             element.id = model.id;
                             found = true;
                         }
