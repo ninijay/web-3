@@ -31,11 +31,11 @@ class TodoCollection {
     
     add(model, callback){
         model.client_id = this.uuid();
-        model.active = false;
+        model.project_client_id = this.projId;
         $.ajax({
             type: "POST",
-            url: this.root + "project/12525/issues",
-// url: this.root + "project/"+ id +"/issues",
+//            url: this.root + "project/12525/issues",
+            url: this.root + "project/"+ this.projId +"/issues",
             data: JSON.stringify(model),
             contentType: "application/json"
         }).done(callback(json));
