@@ -44,6 +44,7 @@ class ProjectCollection {
             data: JSON.stringify(postModel),
             contentType: "application/json",
             success: function(data){
+                alert("project with id: " + data.id + " created");
                 model.id = data.id;
                 var found = false;
                 if(parent.collection.length > 0){
