@@ -35,7 +35,7 @@ class TodoCollection {
         $.ajax({
             type: "POST",
             url: this.root + "project/12525/issues",
-//            url: this.root + "project/"+ id +"/issues",
+// url: this.root + "project/"+ id +"/issues",
             data: JSON.stringify(model),
             contentType: "application/json"
         }).done(callback(json));
@@ -54,8 +54,21 @@ class TodoCollection {
     	this.bus.trigger("collectionUpdated");
     }
 
+// fetch(){
+// this.collection = JSON.parse(localStorage.getItem(this.localStorage_key)) ||
+// [];
+// this.bus.trigger("collectionUpdated");
+// }
+    
     fetch(){
-        this.collection = JSON.parse(localStorage.getItem(this.localStorage_key)) || [];
+		$.ajax({
+            type: "GET",
+            url: this.root + "projects/12525/issues",
+            success: function(result) {
+            	this.collection = JSON.parse(result);
+            }
+        });
+        
         this.bus.trigger("collectionUpdated");
     }
     
