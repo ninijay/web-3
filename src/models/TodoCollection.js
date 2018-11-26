@@ -6,6 +6,7 @@ class TodoCollection {
         this.projId = id;
         this.root = "http://zhaw-issue-tracker-api.herokuapp.com/api/";
         this.bus = bus;
+        this.result = [];
     }
 
     get(id) {
@@ -65,8 +66,10 @@ class TodoCollection {
             type: "GET",
             url: this.root + "projects/12525/issues",
             success: function(result) {
-            	this.collection = JSON.parse(result);
+            	this.result = result;
             }
+        }).done( function() {
+        	this.collection = JSON.parse(this.result);
         });
         
         this.bus.trigger("collectionUpdated");
