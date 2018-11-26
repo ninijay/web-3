@@ -33,6 +33,7 @@ class TodoCollection {
     add(model, callback){
         model.client_id = this.uuid();
         model.project_client_id = this.projId;
+        console.log(model.project_client_id);
         $.ajax({
             type: "POST",
 //            url: this.root + "project/12525/issues",
@@ -69,7 +70,8 @@ class TodoCollection {
             	this.result = result;
             }
         }).done( function() {
-        	this.collection = JSON.parse(this.result);
+//        	this.collection = JSON.parse(this.result);
+        	console.log(this.result);
         });
         
         this.bus.trigger("collectionUpdated");
